@@ -9,6 +9,8 @@ const {
 const { hethers } = require('@hashgraph/hethers');
 require('dotenv').config();
 
+const contractJSON = require('./contracts/abi/combined.json');
+
 console.clear();
 
 const operatorId = AccountId.fromString(process.env.ACCOUNT_ID);
@@ -55,6 +57,14 @@ async function main() {
   // Init Hethers wallet
   const wallet = new hethers.Wallet(process.env.HETHERS_PRIVATE_KEY, defaultProvider);
   const walletBalance = await defaultProvider.getBalance(process.env.HETHERS_ACCOUNT_ID);
+
+  // Deploy contract
+  const contractBytecode = contractJSON.contracts['contracts/Todo.sol:Todo'].bin;
+  const contractAbi = contractJSON.contracts['contracts/Todo.sol:Todo'].abi;
+
+  const factory = new hethers.ContractFactory(contractAbi, contractBytecode, wallet);
+
+  console.log('factory', factory);
 }
 
 main();

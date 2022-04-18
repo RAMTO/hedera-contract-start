@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "compile": "solcjs --abi --bin contracts/Todo.sol -o contracts/abi -p -v --optimize-runs 200",
+    "compile": "yarn clean && solc contracts/Todo.sol -o contracts/abi --combined-json abi,bin --pretty-json --overwrite --optimize-runs 200",
     "clean": "rm -rf contracts/abi"
   },
   "author": "Martin Dobrev",
