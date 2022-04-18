@@ -34,3 +34,15 @@ HETHERS_PRIVATE_KEY=<HEDERA_ACCOUNT_PRIVATE_KEY>
 ```
 yarn start
 ```
+
+⏳ **Compile sample contract:**
+
+```
+yarn compile
+```
+
+🧨 **Delete abi folder:**
+
+```
+yarn clean
+```

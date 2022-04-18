@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "compile": "solcjs --abi contracts/Todo.sol -o contracts/abi -p -v --optimize-runs 200",
+    "clean": "rm -rf contracts/abi"
   },
   "author": "Martin Dobrev",
   "license": "MIT",
