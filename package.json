@@ -1,0 +1,15 @@
+{
+  "name": "hedera-contract-start",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Martin Dobrev",
+  "license": "MIT",
+  "dependencies": {
+    "@hashgraph/hethers": "^1.1.0",
+    "@hashgraph/sdk": "^2.12.1",
+    "dotenv": "^16.0.0"
+  }
+}
