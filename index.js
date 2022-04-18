@@ -40,6 +40,35 @@ async function createHethersWallet(client, amount) {
   };
 }
 
+async function deployContract(signer) {
+  const contractBytecode = contractJSON.contracts['contracts/Todo.sol:Todo'].bin;
+  const contractAbi = contractJSON.contracts['contracts/Todo.sol:Todo'].abi;
+
+  // Create factory
+  const factory = new hethers.ContractFactory(contractAbi, contractBytecode, signer);
+
+  // Deploy an instance of the contract
+  const contract = await factory.deploy({ gasLimit: 300000 });
+
+  await contract.deployTransaction.wait();
+
+  // Get address
+  const contractAddress = contract.address;
+
+  return contractAddress;
+}
+
+function getWallet(provider) {
+  const eoaAddress = {
+    account: process.env.HETHERS_ACCOUNT_ID,
+    privateKey: process.env.HETHERS_PRIVATE_KEY,
+  };
+
+  const wallet = new hethers.Wallet(eoaAddress, provider);
+
+  return wallet;
+}
+
 async function main() {
   // Get provider
   const defaultProvider = hethers.providers.getDefaultProvider('testnet');
@@ -55,16 +84,13 @@ async function main() {
   */
 
   // Init Hethers wallet
-  const wallet = new hethers.Wallet(process.env.HETHERS_PRIVATE_KEY, defaultProvider);
-  const walletBalance = await defaultProvider.getBalance(process.env.HETHERS_ACCOUNT_ID);
+  const wallet = getWallet(defaultProvider);
 
   // Deploy contract
-  const contractBytecode = contractJSON.contracts['contracts/Todo.sol:Todo'].bin;
-  const contractAbi = contractJSON.contracts['contracts/Todo.sol:Todo'].abi;
-
-  const factory = new hethers.ContractFactory(contractAbi, contractBytecode, wallet);
-
-  console.log('factory', factory);
+  /*
+  const contractAddress = await deployContract(wallet);
+  console.log('contractAddress', contractAddress);
+  */
 }
 
 main();
