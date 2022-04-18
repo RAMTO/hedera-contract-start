@@ -91,6 +91,15 @@ async function main() {
   const contractAddress = await deployContract(wallet);
   console.log('contractAddress', contractAddress);
   */
+
+  // Get contract instance
+  const contractInstance = new hethers.Contract(
+    process.env.CONTRACT_ADDRESS,
+    contractJSON.contracts['contracts/Todo.sol:Todo'].abi,
+    wallet,
+  );
+
+  console.log('contractInstance', contractInstance);
 }
 
 main();
