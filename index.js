@@ -12,6 +12,8 @@ const {
   TransferTransaction,
   AccountBalanceQuery,
   TokenDeleteTransaction,
+  TokenInfoQuery,
+  TokenInfo,
 } = require('@hashgraph/sdk');
 const { hethers } = require('@hashgraph/hethers');
 require('dotenv').config();
@@ -144,6 +146,22 @@ async function checkBalance(client, accountId) {
   console.log('checkBalanceTx', checkBalanceTx.tokens.toString());
 }
 
+async function tokenInfo(client, _tokenId) {
+  const { tokenId, name, symbol, totalSupply, expirationTime, decimals } =
+    await new TokenInfoQuery().setTokenId(_tokenId).execute(client);
+
+  const tokenInfo = {
+    tokenId: tokenId.toString(),
+    name,
+    symbol,
+    decimals,
+    totalSupply: totalSupply.toString(),
+    expirationTime: expirationTime.toString(),
+  };
+
+  console.log('tokenInfo', tokenInfo);
+}
+
 async function main() {
   // Get provider
   const defaultProvider = hethers.providers.getDefaultProvider('testnet');
@@ -154,7 +172,7 @@ async function main() {
   // Create Token with HTS
   // const tokenId = await createToken(client, 'Test 12345', 'TEST12345', 0, 1000, operatorId);
 
-  // const currentTokenId = new TokenId(0, 0, 34249493);
+  const currentTokenId = new TokenId(0, 0, 34250874);
 
   // Associate token to id
   // await associateToken(client, accountId, accountKey, tokenId);
@@ -167,6 +185,9 @@ async function main() {
 
   // Transfer token
   // await transferToken(client, accountId, operatorId, currentTokenId);
+
+  // Get token info
+  await tokenInfo(client, currentTokenId);
 
   // Check account balance
   await checkBalance(client, accountId);
