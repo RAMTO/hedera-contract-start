@@ -167,12 +167,20 @@ async function main() {
   const defaultProvider = hethers.providers.getDefaultProvider('testnet');
 
   // Get operator balance
-  const operatorBalance = await defaultProvider.getBalance(operatorId);
+  // const operatorBalance = await defaultProvider.getBalance(operatorId);
 
   // Create Token with HTS
-  // const tokenId = await createToken(client, 'Test 12345', 'TEST12345', 0, 1000, operatorId);
+  const tokenId = await createToken(
+    client,
+    'DOB 0 decimals',
+    'DOB',
+    0,
+    100_000_000_000,
+    operatorId,
+  );
+  console.log('tokenId', tokenId);
 
-  const currentTokenId = new TokenId(0, 0, 34250874);
+  // const currentTokenId = new TokenId(0, 0, 34250874);
 
   // Associate token to id
   // await associateToken(client, accountId, accountKey, tokenId);
@@ -187,10 +195,10 @@ async function main() {
   // await transferToken(client, accountId, operatorId, currentTokenId);
 
   // Get token info
-  await tokenInfo(client, currentTokenId);
+  // await tokenInfo(client, currentTokenId);
 
   // Check account balance
-  await checkBalance(client, accountId);
+  // await checkBalance(client, accountId);
 
   // Create Hethers wallet
   /*
